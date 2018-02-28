@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+
+    <string name="some_error">Some Error</string>
+
+    <string name="popular">Popular</string>
+    <string name="topRated">Top Rated</string>
+    <string name="logout">Logout</string>
+    <string name="upComing">UpComing</string>
+
+
+
+
+    <!--Drawer-->
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+</resources>
