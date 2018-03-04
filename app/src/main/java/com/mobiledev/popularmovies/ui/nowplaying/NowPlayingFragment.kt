@@ -9,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mobiledev.popularmovies.R
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.NowPlayingResponseModel
 import com.mobiledev.popularmovies.ui.base.BaseFragment
-import com.mobiledev.popularmovies.ui.popular.PopularAdapter
+import com.mobiledev.popularmovies.utils.CommonUtils
 import com.mobiledev.popularmovies.utils.DialogConstants
 import com.mobiledev.popularmovies.utils.DialogUtil
 import io.reactivex.annotations.Nullable
@@ -24,18 +24,26 @@ import javax.inject.Inject
 class NowPlayingFragment: BaseFragment(), NowPlayingView, DialogUtil.OnDialogSelectedListener  {
 
     lateinit var rootView: View
+
     @Inject
     lateinit var mPresenter: NowPlayingPresenter<NowPlayingView>
 
     @Inject
-    lateinit  var popularAdapter: PopularAdapter
+    lateinit  var popularAdapter: NowPlayingAdapter
+
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
+
     var recyclerView: RecyclerView? = null
+
     private var pastVisiblesItems: Int = 0
+
     var visibleItemCount: Int = 0
+
     private var loading = false
+
     private var page = 1
+
     var totalItemCount: Int = 0
 
     @Nullable
@@ -64,30 +72,14 @@ class NowPlayingFragment: BaseFragment(), NowPlayingView, DialogUtil.OnDialogSel
                     if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
                         loading = true
                         page++
-                        mPresenter.fetchAllNowPlayingMovies(page)
+                        if(CommonUtils.isNetworkAvailable(context)) {
+                            mPresenter.fetchAllNowPlayingMovies(page)
+                        }
                     }
                 }
             }
         })
         return rootView
-    }
-
-
-    override fun setUp(view: View?) {
-
-
-    }
-
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mPresenter.onDetach()
-
-    }
-
-    override fun onGettingNowPlayingMovieList(moviestResponseModel: MoviestResponseModel) {
-        popularAdapter?.addItems(moviestResponseModel.results)
     }
 
     override fun onError(message: String) {
@@ -98,6 +90,19 @@ class NowPlayingFragment: BaseFragment(), NowPlayingView, DialogUtil.OnDialogSel
     override fun onError(resId: Int) {
         var dialogUtil = DialogUtil();
         dialogUtil.okFunc(activity, getString(resId), "Movies Db", this, DialogConstants.DIALOG_BUTTON_OK)
+    }
+
+
+    override fun setUp(view: View?) {
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mPresenter.onDetach()
+    }
+
+    override fun onGettingNowPlayingMovieList(moviestResponseModel: NowPlayingResponseModel) {
+        popularAdapter?.addItems(moviestResponseModel.results)
     }
 
     override fun onDialogClick(selectedIndex: Int, mObj: Any?, dialogIndex: Int) {

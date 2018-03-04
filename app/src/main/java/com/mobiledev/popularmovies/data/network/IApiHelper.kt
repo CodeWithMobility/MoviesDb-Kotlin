@@ -1,6 +1,6 @@
 package com.mobiledev.popularmovies.data.network
 
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.*
 
 import io.reactivex.Observable
 
@@ -10,12 +10,12 @@ import io.reactivex.Observable
 
 interface IApiHelper {
 
+    fun getPopularMovies(page: Int): Observable<PopularResponseModel>
 
-    fun getPopularMovies(Api: String, page: Int): Observable<MoviestResponseModel>
-    fun getTopRatedMovies(Api: String, page: Int): Observable<MoviestResponseModel>
-    fun getUpComingMovies(Api: String, page: Int): Observable<MoviestResponseModel>
-    fun getNowPlayingMovies(Api: String, page: Int): Observable<MoviestResponseModel>
+    fun getTopRatedMovies(page: Int): Observable<TopRatedResponseModel>
 
+    fun getUpComingMovies (page: Int): Observable<UpComingResponseModel>
 
+    fun getNowPlayingMovies(page: Int): Observable<NowPlayingResponseModel>
 
 }

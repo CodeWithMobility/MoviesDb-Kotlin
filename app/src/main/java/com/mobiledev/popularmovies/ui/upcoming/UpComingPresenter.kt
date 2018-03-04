@@ -11,5 +11,5 @@ import com.mobiledev.popularmovies.ui.base.MvpPresenter
 @PerActivity
 interface UpComingPresenter<V : UpComingView> : MvpPresenter<V> {
 
-    fun fetchAllUpCominMovies(page : Int)
+    fun fetchAllUpComingMovies(page : Int)
 }

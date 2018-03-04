@@ -9,34 +9,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mobiledev.popularmovies.R
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.PopularResponseModel
 import com.mobiledev.popularmovies.ui.base.BaseFragment
+import com.mobiledev.popularmovies.utils.CommonUtils
 import com.mobiledev.popularmovies.utils.DialogConstants
 import com.mobiledev.popularmovies.utils.DialogUtil
 import io.reactivex.annotations.Nullable
 import javax.inject.Inject
 
 
-
 /**
  * Created by manu on 2/27/2018.
  */
 
-class PopularFragment : BaseFragment(), PopularView, DialogUtil.OnDialogSelectedListener  {
+class PopularFragment : BaseFragment(), PopularView,DialogUtil.OnDialogSelectedListener  {
 
     lateinit var rootView: View
+
     @Inject
     lateinit var mPresenter: PopularPresenter<PopularView>
 
     @Inject
     lateinit  var popularAdapter: PopularAdapter
+
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
+
     var recyclerView: RecyclerView? = null
+
     private var pastVisiblesItems: Int = 0
+
     var visibleItemCount: Int = 0
+
     private var loading = false
+
     private var page = 1
+
     var totalItemCount: Int = 0
 
     @Nullable
@@ -65,18 +73,14 @@ class PopularFragment : BaseFragment(), PopularView, DialogUtil.OnDialogSelected
                     if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
                         loading = true
                         page++
-                        mPresenter.fetchAllPopularMovies(page)
+                        if(CommonUtils.isNetworkAvailable(context)) {
+                            mPresenter.fetchAllPopularMovies(page)
+                        }
                     }
                 }
             }
         })
         return rootView
-    }
-
-
-    override fun setUp(view: View?) {
-
-
     }
 
     override fun onError(message: String) {
@@ -89,17 +93,20 @@ class PopularFragment : BaseFragment(), PopularView, DialogUtil.OnDialogSelected
         dialogUtil.okFunc(activity, getString(resId), "Movies Db", this, DialogConstants.DIALOG_BUTTON_OK)
     }
 
+    override fun setUp(view: View?) {
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.onDetach()
-
     }
 
-    override fun onGettingPopularMovieList(moviestResponseModel: MoviestResponseModel) {
+    override fun onGettingPopularMovieList(moviestResponseModel: PopularResponseModel) {
         popularAdapter?.addItems(moviestResponseModel.results)
     }
 
     override fun onDialogClick(selectedIndex: Int, mObj: Any?, dialogIndex: Int) {
         //Callback function based on dialog button click event
     }
+
 }

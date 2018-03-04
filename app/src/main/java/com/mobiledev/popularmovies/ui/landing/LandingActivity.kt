@@ -25,6 +25,7 @@ class LandingActivity : BaseActivity() ,LandingView , NavigationView.OnNavigatio
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing)
+
         activityComponent!!.inject(this)
         mPresenter.onAttach(this)
 
@@ -37,8 +38,9 @@ class LandingActivity : BaseActivity() ,LandingView , NavigationView.OnNavigatio
         toggle.syncState()
         drawer!!.customAdjustment(10.0f, 0.8f, 10.0f, 10f)
         val mNavigationView = findViewById<NavigationView>(R.id.navigation_view)
-
         mNavigationView.setNavigationItemSelectedListener(this)
+
+
         supportFragmentManager.beginTransaction().replace(R.id.containerView, PopularFragment()).commit()
     }
 

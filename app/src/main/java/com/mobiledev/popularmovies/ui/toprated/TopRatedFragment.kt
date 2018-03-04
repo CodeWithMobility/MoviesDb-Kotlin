@@ -9,8 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mobiledev.popularmovies.R
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.TopRatedResponseModel
 import com.mobiledev.popularmovies.ui.base.BaseFragment
+import com.mobiledev.popularmovies.utils.CommonUtils
 import com.mobiledev.popularmovies.utils.DialogConstants
 import com.mobiledev.popularmovies.utils.DialogUtil
 import io.reactivex.annotations.Nullable
@@ -21,7 +22,6 @@ import javax.inject.Inject
  */
 
 class TopRatedFragment: BaseFragment(), TopRatedView, DialogUtil.OnDialogSelectedListener  {
-
 
     @Inject
     lateinit var mPresenter: TopRatedPresenter<TopRatedView>
@@ -37,9 +37,13 @@ class TopRatedFragment: BaseFragment(), TopRatedView, DialogUtil.OnDialogSelecte
     lateinit var rootView: View
 
     private var pastVisiblesItems: Int = 0
+
     var visibleItemCount: Int = 0
+
     private var loading = false
+
     private var page = 1
+
     var totalItemCount: Int = 0
 
     @Nullable
@@ -67,17 +71,14 @@ class TopRatedFragment: BaseFragment(), TopRatedView, DialogUtil.OnDialogSelecte
                     if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
                             loading = true
                             page++
+                        if(CommonUtils.isNetworkAvailable(context)) {
                             mPresenter.fetchAllTopRatedrMovies(page)
+                        }
                     }
                 }
             }
         })
         return rootView
-    }
-
-
-    override fun setUp(view: View?) {
-
     }
     override fun onError(message: String) {
         var dialogUtil = DialogUtil();
@@ -88,14 +89,17 @@ class TopRatedFragment: BaseFragment(), TopRatedView, DialogUtil.OnDialogSelecte
         var dialogUtil = DialogUtil();
         dialogUtil.okFunc(activity, getString(resId), "Movies Db", this, DialogConstants.DIALOG_BUTTON_OK)
     }
+
+
+    override fun setUp(view: View?) {
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.onDetach()
-
     }
 
-
-    override fun onGettingTopRatedMovieList(moviestResponseModel: MoviestResponseModel) {
+    override fun onGettingTopRatedMovieList(moviestResponseModel: TopRatedResponseModel) {
         topRatedAdapter?.addItems(moviestResponseModel.results)
     }
 

@@ -8,8 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mobiledev.popularmovies.R
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.UpComingResponseModel
 import com.mobiledev.popularmovies.ui.base.BaseFragment
+import com.mobiledev.popularmovies.utils.CommonUtils
 import com.mobiledev.popularmovies.utils.DialogConstants
 import com.mobiledev.popularmovies.utils.DialogUtil
 import io.reactivex.annotations.Nullable
@@ -19,7 +20,7 @@ import javax.inject.Inject
  * Created by manu on 2/28/2018.
  */
 
-class UpComingFragment : BaseFragment(), UpComingView , DialogUtil.OnDialogSelectedListener {
+class UpComingFragment : BaseFragment(), UpComingView, DialogUtil.OnDialogSelectedListener  {
 
 
     @Inject
@@ -36,9 +37,13 @@ class UpComingFragment : BaseFragment(), UpComingView , DialogUtil.OnDialogSelec
     lateinit var rootView: View
 
     private var pastVisiblesItems: Int = 0
+
     var visibleItemCount: Int = 0
+
     private var loading = false
+
     private var page = 1
+
     var totalItemCount: Int = 0
 
     @Nullable
@@ -55,7 +60,7 @@ class UpComingFragment : BaseFragment(), UpComingView , DialogUtil.OnDialogSelec
         recyclerView!!.layoutManager = mLayoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
         recyclerView!!.adapter = upComingAdapter
-        mPresenter.fetchAllUpCominMovies(page)
+        mPresenter.fetchAllUpComingMovies(page)
 
         recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -66,17 +71,14 @@ class UpComingFragment : BaseFragment(), UpComingView , DialogUtil.OnDialogSelec
                     if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
                         loading = true
                         page++
-                        mPresenter.fetchAllUpCominMovies(page)
+                        if(CommonUtils.isNetworkAvailable(context)) {
+                            mPresenter.fetchAllUpComingMovies(page)
+                        }
                     }
                 }
             }
         })
         return rootView
-    }
-
-
-    override fun setUp(view: View?) {
-
     }
 
     override fun onError(message: String) {
@@ -89,14 +91,17 @@ class UpComingFragment : BaseFragment(), UpComingView , DialogUtil.OnDialogSelec
         dialogUtil.okFunc(activity, getString(resId), "Movies Db", this, DialogConstants.DIALOG_BUTTON_OK)
     }
 
+    override fun setUp(view: View?) {
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.onDetach()
 
     }
 
-
-    override fun onGettingTopRatedMovieList(moviestResponseModel: MoviestResponseModel) {
+    override fun onGettingTopRatedMovieList(moviestResponseModel: UpComingResponseModel) {
         upComingAdapter?.addItems(moviestResponseModel.results)
     }
 

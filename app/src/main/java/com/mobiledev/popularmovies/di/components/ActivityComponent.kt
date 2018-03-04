@@ -19,7 +19,7 @@ import dagger.Component
 @Component(dependencies = arrayOf(ApplicationComponent::class), modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
 
-    // void inject(SplashActivity activity);
+
     fun inject(activity: LandingActivity)
 
     fun inject(fragment: PopularFragment)

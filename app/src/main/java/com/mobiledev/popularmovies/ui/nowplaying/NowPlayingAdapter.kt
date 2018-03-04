@@ -3,7 +3,7 @@ package com.mobiledev.popularmovies.ui.nowplaying
 import android.view.View
 import android.view.ViewGroup
 import com.mobiledev.popularmovies.R
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.NowPlayingResponseModel
 import com.mobiledev.popularmovies.ui.base.BaseActivity
 import com.mobiledev.popularmovies.ui.base.BaseAdapter
 import com.mobiledev.popularmovies.ui.base.BaseViewHolder
@@ -14,7 +14,8 @@ import java.util.ArrayList
  */
 class NowPlayingAdapter(activity: BaseActivity) : BaseAdapter(activity) {
 
-    protected var productModelArrayList: ArrayList<MoviestResponseModel.ResultsEntity>? = ArrayList()
+    protected var productModelArrayList: ArrayList<NowPlayingResponseModel.NowPlayingEntity>? = ArrayList()
+
     internal var onProductClickListener: OnProductClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -29,7 +30,7 @@ class NowPlayingAdapter(activity: BaseActivity) : BaseAdapter(activity) {
         return if (productModelArrayList == null || productModelArrayList!!.size == 0) 0 else productModelArrayList!!.size
     }
 
-    fun addItems(results: List<MoviestResponseModel.ResultsEntity>?) {
+    fun addItems(results: List<NowPlayingResponseModel.NowPlayingEntity>?) {
         if (results == null || results.size == 0) return
         val firstPosition = if (productModelArrayList!!.size == 0) 0 else productModelArrayList!!.size - 1
         productModelArrayList!!.addAll(results)
@@ -41,7 +42,7 @@ class NowPlayingAdapter(activity: BaseActivity) : BaseAdapter(activity) {
     }
 
     interface OnProductClickListener {
-        fun onProductClick(resultsEntity: MoviestResponseModel.ResultsEntity, v: View)
+        fun onProductClick(resultsEntity: NowPlayingResponseModel.NowPlayingEntity, v: View)
     }
 
 }

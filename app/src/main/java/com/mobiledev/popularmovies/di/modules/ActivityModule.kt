@@ -56,14 +56,6 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
         return CompositeDisposable()
     }
 
-    //    @Provides
-    //    @PerActivity
-    //    SplashPresenter<SplashView> provideSplashPresenter(
-    //            SplashPresenterImpl<SplashView> presenter) {
-    //        return presenter;
-    //    }
-
-
 
     @Provides
     @PerActivity

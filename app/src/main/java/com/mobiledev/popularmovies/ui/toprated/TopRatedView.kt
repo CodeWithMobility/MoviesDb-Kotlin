@@ -1,6 +1,6 @@
 package com.mobiledev.popularmovies.ui.toprated
 
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.TopRatedResponseModel
 import com.mobiledev.popularmovies.ui.base.MvpView
 
 /**
@@ -8,5 +8,6 @@ import com.mobiledev.popularmovies.ui.base.MvpView
  */
 
 interface TopRatedView : MvpView{
-    fun onGettingTopRatedMovieList(moviestResponseModel: MoviestResponseModel)
+
+    fun onGettingTopRatedMovieList(moviestResponseModel: TopRatedResponseModel)
 }

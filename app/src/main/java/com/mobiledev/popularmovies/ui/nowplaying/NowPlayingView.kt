@@ -1,6 +1,6 @@
 package com.mobiledev.popularmovies.ui.nowplaying
 
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.NowPlayingResponseModel
 import com.mobiledev.popularmovies.ui.base.MvpView
 
 /**
@@ -8,5 +8,5 @@ import com.mobiledev.popularmovies.ui.base.MvpView
  */
 interface NowPlayingView : MvpView {
 
-    fun onGettingNowPlayingMovieList(moviestResponseModel: MoviestResponseModel)
+    fun onGettingNowPlayingMovieList(moviestResponseModel: NowPlayingResponseModel)
 }

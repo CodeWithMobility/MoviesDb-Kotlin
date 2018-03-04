@@ -1,6 +1,6 @@
 package com.mobiledev.popularmovies.ui.popular
 
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.PopularResponseModel
 import com.mobiledev.popularmovies.ui.base.MvpView
 
 /**
@@ -9,5 +9,5 @@ import com.mobiledev.popularmovies.ui.base.MvpView
 
 interface PopularView : MvpView {
 
-    fun onGettingPopularMovieList(moviestResponseModel: MoviestResponseModel)
+    fun onGettingPopularMovieList(moviestResponseModel: PopularResponseModel)
 }

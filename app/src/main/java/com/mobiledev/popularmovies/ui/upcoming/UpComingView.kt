@@ -1,6 +1,6 @@
 package com.mobiledev.popularmovies.ui.upcoming
 
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.UpComingResponseModel
 import com.mobiledev.popularmovies.ui.base.MvpView
 
 /**
@@ -9,5 +9,6 @@ import com.mobiledev.popularmovies.ui.base.MvpView
 
 
 interface UpComingView : MvpView {
-    fun onGettingTopRatedMovieList(moviestResponseModel: MoviestResponseModel)
+
+    fun onGettingTopRatedMovieList(moviestResponseModel: UpComingResponseModel)
 }

@@ -1,6 +1,10 @@
 package com.mobiledev.popularmovies.data.network
 
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.BuildConfig
+import com.mobiledev.popularmovies.data.model.NowPlayingResponseModel
+import com.mobiledev.popularmovies.data.model.PopularResponseModel
+import com.mobiledev.popularmovies.data.model.TopRatedResponseModel
+import com.mobiledev.popularmovies.data.model.UpComingResponseModel
 
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,20 +28,20 @@ constructor(ref: Retrofit) : IApiHelper {
     }
 
 
-    override fun getPopularMovies(productType: String, page: Int): Observable<MoviestResponseModel> {
-        return mApiService.getPopularMovies(productType, page)
+    override fun getPopularMovies(page: Int): Observable<PopularResponseModel> {
+        return mApiService.getPopularMovies(BuildConfig.API_KEY, page)
     }
 
-    override fun getTopRatedMovies(productType: String, page: Int): Observable<MoviestResponseModel> {
-        return mApiService.getTopRatedMovies(productType, page)
+    override fun getTopRatedMovies(page: Int): Observable<TopRatedResponseModel> {
+        return mApiService.getTopRatedMovies(BuildConfig.API_KEY, page)
     }
 
-    override fun getUpComingMovies(productType: String, page: Int): Observable<MoviestResponseModel> {
-        return mApiService.getUpComingMovies(productType, page)
+    override fun getUpComingMovies(page: Int): Observable<UpComingResponseModel> {
+        return mApiService.getUpComingMovies(BuildConfig.API_KEY, page)
     }
 
-    override fun getNowPlayingMovies(productType: String, page: Int): Observable<MoviestResponseModel> {
-        return mApiService.getNowPlayingMovies(productType, page)
+    override fun getNowPlayingMovies(page: Int): Observable<NowPlayingResponseModel> {
+        return mApiService.getNowPlayingMovies(BuildConfig.API_KEY, page)
     }
 
 

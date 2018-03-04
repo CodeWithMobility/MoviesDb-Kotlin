@@ -13,7 +13,6 @@ import javax.inject.Inject
 class LandingPresenterImpl<V : LandingView> @Inject
 constructor(controller: DataManager, compositeDisposable: CompositeDisposable) : BasePresenter<V>(controller, compositeDisposable), LandingPresenter<V> {
 
-
     override fun fetchAllPopularMovies() {
 
     }

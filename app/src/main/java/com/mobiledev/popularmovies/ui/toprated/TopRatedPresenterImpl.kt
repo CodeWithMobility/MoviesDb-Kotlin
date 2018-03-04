@@ -1,8 +1,7 @@
 package com.mobiledev.popularmovies.ui.toprated
 
-import com.mobiledev.popularmovies.BuildConfig
 import com.mobiledev.popularmovies.data.DataManager
-import com.mobiledev.popularmovies.data.model.MoviestResponseModel
+import com.mobiledev.popularmovies.data.model.TopRatedResponseModel
 import com.mobiledev.popularmovies.ui.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,22 +18,20 @@ import javax.inject.Inject
 class TopRatedPresenterImpl<V : TopRatedView> @Inject
     constructor(controller: DataManager, compositeDisposable: CompositeDisposable) : BasePresenter<V>(controller, compositeDisposable), TopRatedPresenter<V> {
 
-
-
     override fun fetchAllTopRatedrMovies(page : Int) {
         mvpView?.showLoading()
         compositeDisposable.add(dataManager
-                .getTopRatedMovies(BuildConfig.API_KEY,page)
+                .getTopRatedMovies(page)
                 .timeInterval()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<Timed<MoviestResponseModel>>() {
+                .subscribeWith(object : DisposableObserver<Timed<TopRatedResponseModel>>() {
                     override fun onComplete() {}
                     override fun onError(error: Throwable) {
                         mvpView?.hideLoading()
-                        mvpView?.onError("Please try again")
+                      //  mvpView?.onError("Please try again")
                     }
-                    override fun onNext(productModels: Timed<MoviestResponseModel>) {
+                    override fun onNext(productModels: Timed<TopRatedResponseModel>) {
                         mvpView?.hideLoading()
                         mvpView?.onGettingTopRatedMovieList(productModels.value())
                     }
