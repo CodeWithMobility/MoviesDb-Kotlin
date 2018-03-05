@@ -2,10 +2,10 @@
 Sample Application using Mvp Pattern, Dagger2, RxJava, Retrofit2, Okhttp, Fresco, Room,  Lambda etc in Kotlin
 
 
-   //Dagger
+    //Dagger
     compile "com.google.dagger:dagger:$rootProject.dagger2Version"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
- 
+
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
